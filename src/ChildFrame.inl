@@ -2233,11 +2233,11 @@ void	CChildFrame::Impl::OnSpecialKeys(UINT uNotifyCode, int nID, CWindow wndCtl)
 	int nCode = 0;
 	switch (nID) {
 	case ID_SPECIAL_HOME:		
-		m_Browser->SendMouseWheelEvent(pt.x, pt.y, +30000);
+		m_Browser->SendMouseWheelEvent(pt.x, pt.y, -300000);
 		return ;
 		//nCode = VK_HOME;	break;
 	case ID_SPECIAL_END:		
-		m_Browser->SendMouseWheelEvent(pt.x, pt.y, -30000);
+		m_Browser->SendMouseWheelEvent(pt.x, pt.y, +300000);
 		return ;
 		//nCode = VK_END; 	break;
 	case ID_SPECIAL_PAGEUP: 	nCode = VK_PRIOR;	break;
