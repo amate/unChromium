@@ -564,6 +564,8 @@ bool CChildFrame::Impl::GetAuthCredentials(CefRefPtr<CefBrowser> browser,
 		{
 			CenterWindow();
 
+			SetForegroundWindow(m_hWnd);
+
 			CStatic wndStatic = GetDlgItem(IDC_STATIC_DISCRIPTION);
 			CString	strtext = MtlGetWindowText(wndStatic);
 			strtext.Replace(_T("%s"), m_host);
@@ -605,7 +607,7 @@ bool CChildFrame::Impl::GetAuthCredentials(CefRefPtr<CefBrowser> browser,
 	};
 
 	CGetAuthCredentialsDialog	acdialog(host.c_str());
-	if (acdialog.DoModal(m_hWnd) == IDOK) {
+	if (acdialog.DoModal(NULL) == IDOK) {
 		username = (LPCTSTR)acdialog.GetUsername();
 		password = (LPCTSTR)acdialog.GetPassword();
 		return true;
