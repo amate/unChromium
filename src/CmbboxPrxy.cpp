@@ -60,7 +60,7 @@ void CComboBoxPrxyR::ChangeProxy(int nIndex)
 
 	CString 				str;
 	MtlGetLBTextFixed(m_hWnd, nIndex, str);
-
+#if 0
   #ifdef UNICODE	//+++	UNICODE対策.
 	SInternet_Proxy_Info	proxyinfo;
 	std::vector<char>		vec;
@@ -100,8 +100,36 @@ void CComboBoxPrxyR::ChangeProxy(int nIndex)
 		proxyinfo.lpszProxyBypass = NULL;
 	}
   #endif
+	//UrlMkSetSessionOption(INTERNET_OPTION_PROXY, &proxyinfo, sizeof (proxyinfo), 0); 
+#endif
+#if 1
+	INTERNET_PER_CONN_OPTION_LIST list = { sizeof(list) };
+	list.pszConnection	= NULL;
+    list.dwOptionCount = 3;
+    list.pOptions = new INTERNET_PER_CONN_OPTION[3];
+    // Set flags.
+    list.pOptions[0].dwOption = INTERNET_PER_CONN_FLAGS;
+    list.pOptions[0].Value.dwValue = str.IsEmpty() ? PROXY_TYPE_DIRECT : PROXY_TYPE_PROXY;
 
-	UrlMkSetSessionOption(INTERNET_OPTION_PROXY, &proxyinfo, sizeof (proxyinfo), 0);
+    // Set proxy name.
+    list.pOptions[1].dwOption = INTERNET_PER_CONN_PROXY_SERVER;
+	list.pOptions[1].Value.pszValue = str.IsEmpty() ? NULL : str.GetBuffer(0);
+
+    // Set proxy override.
+    list.pOptions[2].dwOption = INTERNET_PER_CONN_PROXY_BYPASS;
+	CString strbypass = GetBypass();
+	list.pOptions[2].Value.pszValue = strbypass.GetBuffer(0);
+
+    // Set the options on the connection.
+    InternetSetOption(NULL,
+        INTERNET_OPTION_PER_CONNECTION_OPTION, &list, sizeof(list));
+
+    // Free the allocated memory.
+    delete [] list.pOptions;
+    InternetSetOption(NULL, INTERNET_OPTION_SETTINGS_CHANGED, NULL, 0);
+    InternetSetOption(NULL, INTERNET_OPTION_REFRESH , NULL, 0);
+    //return bReturn;
+#endif
 
 	// プロキシファイルパス
 	CString 	strFile = _GetFilePath( _T("Proxy.ini") );

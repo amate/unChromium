@@ -515,7 +515,7 @@ int RunWinMain(HINSTANCE hInstance, LPTSTR lpstrCmdLine, int nCmdShow)
 	std::wstring strCachePath = static_cast<LPCWSTR>(Misc::GetExeDirectory() + _T("cache"));
 	CefString(&settings.cache_path).FromWString(strCachePath);
 	CefString(&settings.locale).FromWString(std::wstring(L"ja"));
-
+	//settings.auto_detect_proxy_settings_enabled = true;
 	ATLVERIFY(CefInitialize(settings, nullptr));
 
 	g_pMainWnd	 = NULL;
