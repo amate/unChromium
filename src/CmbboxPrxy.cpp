@@ -109,7 +109,7 @@ void CComboBoxPrxyR::ChangeProxy(int nIndex)
     list.pOptions = new INTERNET_PER_CONN_OPTION[3];
     // Set flags.
     list.pOptions[0].dwOption = INTERNET_PER_CONN_FLAGS;
-    list.pOptions[0].Value.dwValue = str.IsEmpty() ? PROXY_TYPE_DIRECT : PROXY_TYPE_PROXY;
+    list.pOptions[0].Value.dwValue = PROXY_TYPE_DIRECT | PROXY_TYPE_PROXY;
 
     // Set proxy name.
     list.pOptions[1].dwOption = INTERNET_PER_CONN_PROXY_SERVER;
