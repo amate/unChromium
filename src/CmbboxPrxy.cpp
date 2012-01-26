@@ -113,7 +113,9 @@ void CComboBoxPrxyR::ChangeProxy(int nIndex)
 
     // Set proxy name.
     list.pOptions[1].dwOption = INTERNET_PER_CONN_PROXY_SERVER;
-	list.pOptions[1].Value.pszValue = str.IsEmpty() ? NULL : str.GetBuffer(0);
+	CString strProxy;
+	strProxy.Format(_T("http=%s;https=%s"), str, str);
+	list.pOptions[1].Value.pszValue = str.IsEmpty() ? NULL : strProxy.GetBuffer(0);
 
     // Set proxy override.
     list.pOptions[2].dwOption = INTERNET_PER_CONN_PROXY_BYPASS;
