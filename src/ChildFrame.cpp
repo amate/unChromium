@@ -270,12 +270,6 @@ struct _Function_Hilight2 {
 
 void	HilightWords(CefRefPtr<CefBrowser> browser, CString strKeywords)
 {
-	if (CefCurrentlyOn(TID_UI) == false) {
-		// Execute on the UI thread.
-		CefPostTask(TID_UI, NewCefRunnableFunction(&HilightWords, browser, strKeywords));	
-		return ;
-	}
-
 	if (strKeywords.IsEmpty())
 		return ;
 
@@ -313,12 +307,6 @@ void	HilightWords(CefRefPtr<CefBrowser> browser, CString strKeywords)
 
 void	UnHilight(CefRefPtr<CefBrowser> browser)
 {
-	if (CefCurrentlyOn(TID_UI) == false) {
-		// Execute on the UI thread.
-		CefPostTask(TID_UI, NewCefRunnableFunction(&UnHilight, browser));
-		return ;
-	}
-
 	CefRefPtr<CefFrame> frame = browser->GetMainFrame();
 	CefString url = frame->GetURL();
 
@@ -336,12 +324,6 @@ void	UnHilight(CefRefPtr<CefBrowser> browser)
 
 void	FindKeyword(CString strKeyword, bool bFindDown, CefRefPtr<CefBrowser> browser)
 {
-	if (CefCurrentlyOn(TID_UI) == false) {
-		// Execute on the UI thread.
-		CefPostTask(TID_UI, NewCefRunnableFunction(&FindKeyword, strKeyword, bFindDown, browser));
-		return ;
-	}
-
 	std::wstring strPrepare = L"var unDonutKeyword = ";
 	strPrepare += _T("\"");
 	strPrepare += strKeyword;

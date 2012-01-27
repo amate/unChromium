@@ -2073,9 +2073,9 @@ void CDonutSearchBar::Impl::_OnEnterKeyDown(bool bEditText /*= false*/)
 		  #endif
 
 			if (sCtrl < 0)			
-				SendMessage(GetTopLevelParent(), WM_USER_FIND_KEYWORD, (WPARAM) str.GetBuffer(0), TRUE );	// ↓検索
+				SendMessage(GetTopLevelParent(), WM_USER_FIND_KEYWORD, (WPARAM) str.GetBuffer(0), MAKELPARAM(TRUE, 100) );	// ↓検索
 			else if (sShift < 0)	
-				SendMessage(GetTopLevelParent(), WM_USER_FIND_KEYWORD, (WPARAM) str.GetBuffer(0), FALSE);	// ↑検索
+				SendMessage(GetTopLevelParent(), WM_USER_FIND_KEYWORD, (WPARAM) str.GetBuffer(0), MAKELPARAM(FALSE,100) );	// ↑検索
 		}
 	} else {	// DropDownリストビューを消す
 		m_cmbEngine.ShowDropDown(FALSE); //minit

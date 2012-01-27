@@ -1912,36 +1912,10 @@ LRESULT CChildFrame::Impl::OnFindKeyWord(LPCTSTR lpszKeyWord, BOOL bFindDown, lo
 		return 0;
 
 	if (Flags == 100) {	// 検索バーから
-		CString strNowKeyWord = m_strSearchWord;
-		DeleteMinimumLengthWord(strNowKeyWord);
-		LPCTSTR		strExcept	= _T(" \t\"\r\n　");
-		strNowKeyWord = _tcstok( strNowKeyWord.GetBuffer(0), strExcept );
-		strNowKeyWord.TrimLeft(strExcept);
-		strNowKeyWord.TrimRight(strExcept);
 		CString	strKeyword = lpszKeyWord;
+		LPCTSTR		strExcept	= _T(" \t\"\r\n　");
 		strKeyword.TrimLeft(strExcept);
 		strKeyword.TrimRight(strExcept);
-		while (strNowKeyWord.IsEmpty() == false) {
-			if (strNowKeyWord == strKeyword) {
-				if (m_bNowHilight == false) {
-					HilightWords(m_Browser, strKeyword);
-					m_bNowHilight = true;
-					CDonutSearchBar::GetInstance()->ForceSetHilightBtnOn(true);
-				}
-				FindKeyword(strKeyword, bFindDown != 0, m_Browser);
-				return 0;
-			}
-
-			// 次のワードへ
-			strNowKeyWord = _tcstok(NULL, strExcept);
-			strNowKeyWord.TrimLeft(strExcept);
-			strNowKeyWord.TrimRight(strExcept);
-		}
-		UnHilight(m_Browser);
-		HilightWords(m_Browser, strKeyword);
-		m_strSearchWord = strKeyword;
-		m_bNowHilight = true;
-		CDonutSearchBar::GetInstance()->ForceSetHilightBtnOn(true);
 		FindKeyword(strKeyword, bFindDown != 0, m_Browser);
 		return 1;
 
