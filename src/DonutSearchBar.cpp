@@ -646,7 +646,7 @@ void	CDonutSearchBar::Impl::SearchWebWithEngine(CString str, CString strEngine)
 			if (funcGetOpenUrlstr(strOpenURL, str, pr, CString()) == false)
 				return;	// åüçıURLÇÃçÏê¨Ç…é∏îs
 		}
-		DWORD	dwOpenFlags = D_OPENFILE_ACTIVATE;
+		DWORD	dwOpenFlags = D_OPENFILE_CREATETAB | D_OPENFILE_ACTIVATE;
 		if (s_bActiveWindow) 
 			dwOpenFlags |= D_OPENFILE_NOCREATE;
 

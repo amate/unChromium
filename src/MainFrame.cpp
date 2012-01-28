@@ -1712,7 +1712,7 @@ LRESULT CMainFrame::OnOpenWithExProp(_EXPROP_ARGS *pArgs)
 			if (CSearchBarOption::s_bAutoHilight)
 				pChild->SetSearchWordAutoHilight(str, true);
 		};
-		data.bActive	= !_check_flag(CMainOption::s_dwMainExtendedStyle, MAIN_EX_NOACTIVATE);
+		data.bActive	= _check_flag(pArgs->dwOpenFlag, D_OPENFILE_ACTIVATE);//!_check_flag(CMainOption::s_dwMainExtendedStyle, MAIN_EX_NOACTIVATE);
 		CChildFrame::AsyncCreate(data);
 	}
 
