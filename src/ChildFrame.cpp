@@ -550,6 +550,7 @@ public:
 		USER_MSG_WM_EXECUTEUSERJAVASCRIPT( OnExecuteUserJavascript )
 		USER_MSG_WM_SETPAGEBITMAP	( OnSetPageBitmap )
 		USER_MSG_WM_DRAWCHILDFRAMEPAGE( OnDrawChildFramePage )
+		USER_MSG_WM_FAVICONCHANGE	( OnFaviconChange	)
 		USER_MSG_WM_INCREMENTTHREADREFCOUNT()
 		
 		MESSAGE_HANDLER_EX( WM_DOMENUPOPUP, OnDoMenuPopup )
@@ -643,6 +644,7 @@ public:
 	void	OnExecuteUserJavascript(CString* pstrScriptText);
 	void	OnSetPageBitmap(HBITMAP* pBmp) { m_pPageBitmap = pBmp; }
 	void	OnDrawChildFramePage(CDCHandle dc);
+	void	OnFaviconChange(LPCTSTR strFaviconURL) { m_UIChange.SetFaviconURL(strFaviconURL); }
 
 	// ƒtƒ@ƒCƒ‹
 	void 	OnEditOpenSelectedRef(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/);

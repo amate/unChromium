@@ -3195,7 +3195,7 @@ void	CChildFrame::Impl::_SetFavicon(CefRefPtr<CefFrame> frame)
 	class GetFaviconUrlDOMVisitor : public CefDOMVisitor
 	{
 	public:
-		GetFaviconUrlDOMVisitor(CChildFrame::Impl* pThis) : m_pThis(pThis) {}
+		GetFaviconUrlDOMVisitor(HWND hWndChildFrame) : m_hWndChildFrame(hWndChildFrame) {}
 
 		virtual void Visit(CefRefPtr<CefDOMDocument> document)
 		{
@@ -3228,17 +3228,16 @@ void	CChildFrame::Impl::_SetFavicon(CefRefPtr<CefFrame> frame)
 					strFaviconURL += _T("/favicon.ico");
 				}
 			}
-
-			m_pThis->m_UIChange.SetFaviconURL(strFaviconURL);
-			CFaviconManager::SetFavicon(m_pThis->m_hWnd, strFaviconURL);
+			::SendMessage(m_hWndChildFrame, WM_FAVICONCHANGE, (WPARAM)(LPCTSTR)strFaviconURL, 0);
+			CFaviconManager::SetFavicon(m_hWndChildFrame, strFaviconURL);
 		}
 
 	private:
-		CChildFrame::Impl*	m_pThis;
+		HWND	m_hWndChildFrame;
 
 		IMPLEMENT_REFCOUNTING(GetFaviconUrlDOMVisitor);
 	};
-	CefRefPtr<CefDOMVisitor> getFaviconDomVisitor(new GetFaviconUrlDOMVisitor(this));
+	CefRefPtr<CefDOMVisitor> getFaviconDomVisitor(new GetFaviconUrlDOMVisitor(m_hWnd));
 	frame->VisitDOM(getFaviconDomVisitor);
 
 #if 0

@@ -680,6 +680,17 @@ enum TabCreateOption {
 			return TRUE; 		   \
 	}
 
+// void OnFaviconChange(LPCTSTR strFaviconURL)
+#define WM_FAVICONCHANGE		(WM_USER + 125)
+#define USER_MSG_WM_FAVICONCHANGE(func)	\
+	if (uMsg == WM_FAVICONCHANGE) {	   \
+		SetMsgHandled(TRUE);		   \
+		func((LPCTSTR)wParam);						\
+		lResult = 0;				\
+		if ( IsMsgHandled() )		   \
+			return TRUE; 		   \
+	}
+
 
 #define WM_DECREMENTTHREADREFCOUNT	(WM_APP + 200)
 #define WM_INCREMENTTHREADREFCOUNT	(WM_APP + 201)
