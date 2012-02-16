@@ -371,6 +371,17 @@ HRESULT CCustomBindStatusCallBack::OnResponse(
 			}
 		}
 	}
+	{	// Content-Typeから拡張子を取得
+		std::wregex rx(L"Content-Type: image/([a-z]+)");
+		std::wsmatch	smatch;
+		if (std::regex_search(strRespons, smatch, rx)) {
+			CString strExt = smatch[1].str().c_str();
+			if (strExt == _T("jpeg"))
+				m_pDLItem->strExtention = _T("jpg");
+			else if (strExt == _T("png") || strExt == _T("gif"))
+				m_pDLItem->strExtention = strExt;
+		}
+	}
 	
 	return S_OK;
 }
@@ -522,6 +533,10 @@ bool	CCustomBindStatusCallBack::_GetFileName()
 
 	// リンク抽出ダイアログより(画像を保存も)
 	if (m_strDLFolder.IsEmpty() == FALSE) {
+		// 拡張子がなければ Content-Type から拡張子を得る
+		if (Misc::GetFileExt(m_pDLItem->strFileName).IsEmpty() && m_pDLItem->strExtention.GetLength() > 0)
+			m_pDLItem->strFileName += _T(".") + m_pDLItem->strExtention;
+
 		m_pDLItem->strFilePath = m_strDLFolder + m_pDLItem->strFileName;
 		if (::PathFileExists(m_pDLItem->strFilePath)) {
 			if (m_dwDLOption & DLO_OVERWRITEPROMPT) {

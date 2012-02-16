@@ -42,6 +42,9 @@
     <Filter Include="Source Files\cef">
       <UniqueIdentifier>{54336bdb-932a-49c6-a0c9-47bac20c5746}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\AutoLogin">
+      <UniqueIdentifier>{7485da1d-9ea8-4503-b0f3-f233bd4007e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AccelManager.cpp">
@@ -292,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="DonutLinkBarCtrl.cpp">
       <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoLogin\LoginData.cpp">
+      <Filter>Source Files\AutoLogin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -768,6 +774,9 @@
     </ClInclude>
     <ClInclude Include="cef\CefBrowserCommandHandler.h">
       <Filter>Source Files\cef</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoLogin\LoginData.h">
+      <Filter>Source Files\AutoLogin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

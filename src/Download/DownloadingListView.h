@@ -24,6 +24,7 @@ struct DLItem
 	CString	strDomain;
 	CString strReferer;
 	CRect	rcItem;
+	CString strExtention;
 	CString strFileName;	// ファイル名
 	CString	strIncompleteFilePath;
 	CString strFilePath;	// ファイルパス

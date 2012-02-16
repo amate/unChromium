@@ -27,6 +27,7 @@
 #include "PluginManager.h"
 #include "Download\DownloadManager.h"
 #include "MainFrame.h"
+#include "AutoLogin\LoginData.h"
 
 
 #define WM_DOMENUPOPUP	(WM_APP + 2)
@@ -45,6 +46,7 @@ DECLARE_REGISTERED_MESSAGE(GetMarshalIWebBrowserPtr)
 			return TRUE;									   \
 	}														   \
 }
+
 
 #define IMPLEMENTCHILDRAME_REFCOUNTING(ClassName)            \
   public:                                           \
@@ -354,6 +356,45 @@ void	FindKeyword(CString strKeyword, bool bFindDown, CefRefPtr<CefBrowser> brows
 	frame->ExecuteJavaScript((LPCTSTR)strScriptBody, url, 0);
 }
 
+
+void	AutoLogin(const NameValueMap& NameValue, const CheckboxMap& CheckBox, CefRefPtr<CefBrowser> browser)
+{
+	std::wstringstream	strstream;
+	strstream << L"var unDonutNameValue = {";
+	for (auto it = NameValue.cbegin(); it != NameValue.cend(); ++it) {
+		strstream << (LPCTSTR)it->first << L":" << L"\"" << (LPCTSTR)it->second << L"\",";
+	}
+	strstream << L"};\r\n";
+	
+	strstream << L"var unDonutCheckBox = {";
+	for (auto it = CheckBox.cbegin(); it != CheckBox.cend(); ++it) {
+		strstream << (LPCTSTR)it->first << L":" << L"\"" << it->second << L"\",";
+	}
+	strstream << L"};\r\n";
+
+	CefRefPtr<CefFrame> frame = browser->GetMainFrame();
+	CefString url = frame->GetURL();
+
+	frame->ExecuteJavaScript(strstream.str(), url, 0);
+
+	static CString strScriptBody;
+	if (strScriptBody.IsEmpty()) {
+		FILE* fp = _wfopen(Misc::GetExeDirectory() + _T("script/autologin.js"), L"r,ccs=UTF-8");
+		if (fp == nullptr)
+			return ;
+
+		enum { kBuffSize = 512 };
+		WCHAR	buff[kBuffSize];
+		while (!feof(fp)) {
+			size_t	readsize = fread(buff, sizeof(WCHAR), kBuffSize - 1, fp);
+			buff[readsize] = L'\0';
+			strScriptBody += buff;
+		}
+		fclose(fp);
+	}
+	frame->ExecuteJavaScript((LPCTSTR)strScriptBody, url, 0);
+}
+
 };	// namespace
 
 /////////////////////////////////////////////////////////////
@@ -572,6 +613,7 @@ public:
 		COMMAND_ID_HANDLER_EX( ID_COPY_TITLEANDURL		, OnTitleAndUrlCopy 		)
 
 		// •\Ž¦
+		COMMAND_ID_HANDLER_EX( ID_SHOW_AUTOLOGINEDITDIALOG, OnShowAutoLoginEditDialog )
 		COMMAND_ID_HANDLER_EX( ID_VIEW_SETFOCUS 		, OnViewSetFocus	)
 		COMMAND_ID_HANDLER_EX( ID_VIEW_BACK 			, OnViewBack		)
 		COMMAND_ID_HANDLER_EX( ID_VIEW_FORWARD			, OnViewForward 	)
@@ -663,6 +705,7 @@ public:
 	void	OnTitleAndUrlCopy(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/);	
 
 	// •\Ž¦
+	void	OnShowAutoLoginEditDialog(WORD /*wNotifyCode*/, WORD /*wID*/, HWND hWndCtl);
 	void	OnViewSetFocus(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/) { 
 		m_Browser->SetFocus(true);/*m_view.SetFocus();*/ 
 	}

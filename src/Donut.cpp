@@ -22,6 +22,7 @@
 #include "API.h"
 #include "appconst.h"
 #include "MultiThreadManager.h"
+#include "AutoLogin\LoginData.h"
 
 #ifdef USE_ATL3_BASE_HOSTEX /*_ATL_VER < 0x700*/	//+++
 #include "for_ATL3/AtlifaceEx_i.c"
@@ -269,6 +270,8 @@ static bool _PrivateInit()
 	CThemeDLLLoader::LoadThemeDLL();
   #endif
 	CExMenuManager::Initialize();
+
+	CLoginDataManager::Load();
 
 	return true;
 }

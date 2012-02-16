@@ -138,6 +138,7 @@
 #define IDD_PROPPAGE_USERDEFINEDJAVASCRIPT 322
 #define IDD_SCRIPTDETAIL                323
 #define IDD_GETAUTHCREDENTIALS          324
+#define IDD_LOGININFOEDITOR             325
 #define IDC_SLIDER                      1000
 #define IDC_IGNORED_URL_LIST            1000
 #define IDC_EDIT                        1001
@@ -196,7 +197,6 @@
 #define IDC_RADIO_HOME                  1044
 #define IDC_RADIO_NOINITWIN             1045
 #define IDC_BUTTON_REF                  1046
-#define IDC_EDIT_URL                    1047
 #define IDC_CHECK_MAIN_NOMDI            1048
 #define IDC_CHECK_MAIN_VIEWCLIPBOARD    1049
 #define IDC_CHECK_MDITAB_MULTILINE      1050
@@ -325,7 +325,6 @@
 #define IDC_CHECK_NOCLOSE_NAVILOCK      1168
 #define IDC_LISTBOX1                    1169
 #define IDC_BTN_CLEAR                   1174
-#define IDC_BTN_ADD                     1177
 #define IDC_LIST1                       1178
 #define IDC_LIST2                       1179
 #define IDC_BTN_UP                      1180
@@ -585,6 +584,26 @@
 #define IDC_BUTTON_PLAYSE               1437
 #define IDC_EDIT_USERNAME               1438
 #define IDC_EDIT_PASSWORD               1439
+#define IDC_URL_LIST                    1440
+#define IDC_EDIT_URL                    1441
+#define IDC_EDIT_FORMNAME               1442
+#define IDC_VALUE1                      1443
+#define IDC_VALUE2                      1444
+#define IDC_VALUE3                      1445
+#define IDC_NAME1                       1446
+#define IDC_NAME2                       1447
+#define IDC_NAME3                       1448
+#define IDC_BTN_APPLY                   1449
+#define IDC_BTN_ADD                     1450
+#define IDC_BTN_NEW                     1451
+#define IDC_BTN_IMPORT                  1452
+#define IDC_BTN_EXPORT                  1453
+#define IDC_BTN_TEST                    1454
+#define IDC_BTN_DELETE                  1455
+#define IDC_CHECKNAME1                  1456
+#define IDC_CHECKNAME2                  1457
+#define IDC_CHECKBOX1                   1458
+#define IDC_CHECKBOX2                   1459
 #define IDC_CHECK_VIDEO                 2000
 #define IDC_CHECK_SOUND                 2001
 #define IDC_CHECK_IMAGE                 2002
@@ -918,6 +937,11 @@
 #define ID_33216                        33216
 #define ID_VIEW_DEVELOPPER              33217
 #define ID_VIEW_DEVTOOL                 33218
+#define ID_33219                        33219
+#define ID_SHOW                         33220
+#define ID_SHOWAUTOLOGINEDITDIALOG      33221
+#define ID_33222                        33222
+#define ID_SHOW_AUTOLOGINEDITDIALOG     33223
 #define ID_PLUGIN_COMMAND               33333
 #define COMMAND_RANGE_END               34000
 #define ID_INSERTPOINT_CSSMENU          35000
@@ -961,9 +985,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        325
-#define _APS_NEXT_COMMAND_VALUE         33219
-#define _APS_NEXT_CONTROL_VALUE         1440
+#define _APS_NEXT_RESOURCE_VALUE        326
+#define _APS_NEXT_COMMAND_VALUE         33224
+#define _APS_NEXT_CONTROL_VALUE         1460
 #define _APS_NEXT_SYMED_VALUE           130
 #endif
 #endif

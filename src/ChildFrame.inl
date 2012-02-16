@@ -349,6 +349,16 @@ void CChildFrame::Impl::OnLoadEnd(CefRefPtr<CefBrowser> browser,
 		HilightWords(browser, strWords);
 		//m_Browser->Find(10, (LPCTSTR)strWords, true, false, false);
 	}
+
+	// 自動ログイン
+	int nIndex = CLoginDataManager::Find(frame->GetURL().c_str());
+	if (nIndex != -1) {
+		NameValueMap*	pmap;
+		CLoginDataManager::GetNameValueMap(nIndex, pmap);
+		CheckboxMap*	pmapCheck;
+		CLoginDataManager::GetCheckboxMap(nIndex, pmapCheck);
+		AutoLogin(*pmap, *pmapCheck, browser);
+	}
   }
 }
 
@@ -2663,6 +2673,16 @@ void	CChildFrame::Impl::OnViewHome(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hW
 	m_Browser->GetMainFrame()->LoadURL(L"http://www.google.co.jp/");
 }
 
+
+/// 自動ログイン編集ダイアログ表示
+void	CChildFrame::Impl::OnShowAutoLoginEditDialog(WORD /*wNotifyCode*/, WORD /*wID*/, HWND hWndCtl)
+{
+	LoginInfomation	info;
+	info.strLoginUrl	= GetLocationURL();
+	CLoginInfoEditDialog	dlg(info);
+	dlg.SetAutoLoginfunc(boost::bind(&CefBrowser::Reload, m_Browser.get()));
+	dlg.DoModal(m_hWnd);
+}
 
 void	CChildFrame::Impl::OnViewStop(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/)
 {

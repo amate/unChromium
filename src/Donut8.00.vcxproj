@@ -271,7 +271,7 @@
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>.\;..\wtl80\include;D:\Program\cef_binary_1.963.439_windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\wtl80\include;..\..\..\cef_binary_1.963.439_windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;USE_UNDONUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -292,7 +292,7 @@
       <AdditionalIncludeDirectories>.\;..\wtl80\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;delayimp.lib;D:\Program\cef_binary_1.963.439_windows\Release\lib\libcef.lib;D:\Program\cef_binary_1.963.439_windows\Release\lib\libcef_dll_wrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;delayimp.lib;libcef.lib;libcef_dll_wrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -302,6 +302,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <AdditionalLibraryDirectories>..\..\..\cef_binary_1.963.439_windows\$(ConfigurationName)\lib\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -360,7 +361,7 @@
       <AdditionalOptions>/Zm400  %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>.\;..\wtl80\include;D:\Program\cef_binary_1.963.439_windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\wtl80\include;..\..\..\cef_binary_1.963.439_windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;STRICT;_CRT_SECURE_NO_WARNINGS;USE_UNDONUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -379,14 +380,14 @@
       <AdditionalIncludeDirectories>.\;..\wtl80\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;delayimp.lib;D:\Program\cef_binary_1.963.439_windows\Debug\lib\libcef.lib;D:\Program\cef_binary_1.963.439_windows\Debug\lib\libcef_dll_wrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;comctl32.lib;delayimp.lib;libcef.lib;libcef_dll_wrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>D:\Program\cef_binary_1.963.439_windows</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\cef_binary_1.963.439_windows\$(ConfigurationName)\lib\</AdditionalLibraryDirectories>
     </Link>
     <ManifestResourceCompile />
     <PostBuildEvent>
@@ -862,6 +863,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="appconst.cpp" />
+    <ClCompile Include="AutoLogin\LoginData.cpp" />
     <ClCompile Include="BingTranslatorMenu.cpp" />
     <ClCompile Include="ChildFrame.cpp" />
     <ClCompile Include="ChildFrameCommandUIUpdater.cpp" />
@@ -1075,6 +1077,7 @@
     <ClInclude Include="API.h" />
     <ClInclude Include="APIHook.h" />
     <ClInclude Include="appconst.h" />
+    <ClInclude Include="AutoLogin\LoginData.h" />
     <ClInclude Include="BingTranslatorMenu.h" />
     <ClInclude Include="cef\CefBrowserCommandHandler.h" />
     <ClInclude Include="cef\util.h" />
