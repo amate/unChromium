@@ -209,7 +209,9 @@ bool CChildFrame::Impl::OnBeforePopup(CefRefPtr<CefBrowser> parentBrowser,
 {
 	REQUIRE_UI_THREAD();
 
-	if (m_bMClick || (popupFeatures.x < 0 || popupFeatures.y < 0)) {
+	if (m_bMClick || popupFeatures.x < 0 || popupFeatures.y < 0
+		|| ::GetKeyState(VK_CONTROL) < 0 || ::GetKeyState(VK_SHIFT) < 0) 
+	{
 		DWORD	dwDLCtrl	= _GetInheritedDLCtrlFlags();
 		DWORD	dwExStyle	= _GetInheritedExStyleFlags();
 		if (CUrlSecurityOption::IsUndoSecurity(GetLocationURL())) {

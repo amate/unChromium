@@ -604,6 +604,8 @@
 #define IDC_CHECKNAME2                  1457
 #define IDC_CHECKBOX1                   1458
 #define IDC_CHECKBOX2                   1459
+#define IDC_EDIT_CASH                   1460
+#define IDC_EDIT_CACHEPATH              1460
 #define IDC_CHECK_VIDEO                 2000
 #define IDC_CHECK_SOUND                 2001
 #define IDC_CHECK_IMAGE                 2002
@@ -987,7 +989,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        326
 #define _APS_NEXT_COMMAND_VALUE         33224
-#define _APS_NEXT_CONTROL_VALUE         1460
+#define _APS_NEXT_CONTROL_VALUE         1461
 #define _APS_NEXT_SYMED_VALUE           130
 #endif
 #endif

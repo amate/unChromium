@@ -392,7 +392,9 @@ HRESULT CCustomBindStatusCallBack::OnResponse(
 bool	GetFileName(DLItem* pDLItem)
 {
 	// 名前を付けて保存ダイアログを出す
-	if (CDLOptions::bUseSaveFileDialog || ::GetKeyState(VK_CONTROL) < 0) {
+	if (CDLOptions::bUseSaveFileDialog 
+		|| ::GetKeyState(VK_RWIN) < 0 || ::GetKeyState(VK_LWIN) < 0) 
+	{
 		COMDLG_FILTERSPEC filter[] = {
 			{ L"テキスト文書 (*.txt)", L"*.txt" },// ダミー
 			{ L"すべてのファイル", L"*.*" }

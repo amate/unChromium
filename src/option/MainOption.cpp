@@ -52,6 +52,8 @@ int		CMainOption::s_RecentClosedTabMenuType		= RECENTDOC_MENUTYPE_URL;
 
 int		CMainOption::s_nAutoImageResizeType	= AUTO_IMAGE_RESIZE_LCLICK;
 
+CString CMainOption::s_strCacheFolderPath;
+
 
 CMainOption::CMainOption()
 {
@@ -93,6 +95,8 @@ void CMainOption::GetProfile()
 
 	pr.ChangeSectionName( _T("Explorer_Bar") );
 	s_strExplorerUserDirectory = pr.GetStringUW(_T("UserDirectory"));	
+
+	s_strCacheFolderPath = pr.GetStringUW(_T("CacheFolderPath"));
 }
 
 
@@ -123,6 +127,8 @@ void CMainOption::WriteProfile()
 
 	pr.ChangeSectionName(_T("Explorer_Bar"));
 	pr.SetStringUW( s_strExplorerUserDirectory, _T("UserDirectory") );
+
+	pr.SetStringUW(s_strCacheFolderPath, _T("CacheFolderPath"));
 }
 
 void CMainOption::SetExplorerUserDirectory(const CString &strPath)

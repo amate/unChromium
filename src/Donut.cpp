@@ -512,15 +512,6 @@ int RunWinMain(HINSTANCE hInstance, LPTSTR lpstrCmdLine, int nCmdShow)
 	if (CheckOneInstance(lpstrCmdLine)) 
 		return 0;
 
-	// Init CEF
-	CefSettings settings;
-	settings.multi_threaded_message_loop	= true;
-	std::wstring strCachePath = static_cast<LPCWSTR>(Misc::GetExeDirectory() + _T("cache"));
-	CefString(&settings.cache_path).FromWString(strCachePath);
-	CefString(&settings.locale).FromWString(std::wstring(L"ja"));
-	//settings.auto_detect_proxy_settings_enabled = true;
-	ATLVERIFY(CefInitialize(settings, nullptr));
-
 	g_pMainWnd	 = NULL;
 	//	HRESULT hRes = ::CoInitialize(NULL);
 	HRESULT hRes = ::CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
@@ -551,14 +542,28 @@ int RunWinMain(HINSTANCE hInstance, LPTSTR lpstrCmdLine, int nCmdShow)
 	bool	bAutomation  = false;
 	bool	bTray		 = false;
 
-	try {	//+++ 念のため例外チェック.
-		nRet = _PrivateInit();
-	} catch (...) {
+
+	bool bRet = _PrivateInit();
+	if (!bRet) {
 		ErrorLogPrintf(_T("_PrivateInitでエラー\n"));
 		nRet = -1;
 	}
-	if (nRet <= 0)
+
+	// Init CEF
+	CefSettings settings;
+	settings.multi_threaded_message_loop	= true;
+	std::wstring strCachePath = CMainOption::s_strCacheFolderPath;
+	if (strCachePath.empty()) {
+		strCachePath = static_cast<LPCWSTR>(Misc::GetExeDirectory() + _T("cache"));
+	}
+	CefString(&settings.cache_path).FromWString(strCachePath);
+	CefString(&settings.locale).FromWString(std::wstring(L"ja"));
+	//settings.auto_detect_proxy_settings_enabled = true;
+	ATLVERIFY(CefInitialize(settings, nullptr));
+
+	if (nRet < 0)
 		goto END_APP;
+
 
 	// ActiveXコントロールをホストするための準備
 	//AtlAxWinInit();

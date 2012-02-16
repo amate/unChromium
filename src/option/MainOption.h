@@ -101,6 +101,7 @@ public:
 	static int		s_RecentClosedTabMenuType;
 
 	static int		s_nAutoImageResizeType;
+	static CString	s_strCacheFolderPath;
 
 private:
 
@@ -289,6 +290,8 @@ public:
 
 		DDX_INT_RANGE( IDC_EDIT_MRUCOUNT	, s_nMaxRecentClosedTabCount, m_nMRUCountMin, m_nMRUCountMax )
 		DDX_CBINDEX( IDC_COMBO_MRU_MENUTYPE	, s_RecentClosedTabMenuType )
+
+		DDX_TEXT( IDC_EDIT_CACHEPATH	, s_strCacheFolderPath	)
 	END_DDX_MAP()
 
 	// Message map and handlers
