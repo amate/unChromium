@@ -299,6 +299,12 @@
     <ClCompile Include="AutoLogin\LoginData.cpp">
       <Filter>Source Files\AutoLogin</Filter>
     </ClCompile>
+    <ClCompile Include="LinkPopupMenu.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="option\LinkBarPropertyPage.cpp">
+      <Filter>Source Files\option</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AccelManager.h">
@@ -777,6 +783,12 @@
     </ClInclude>
     <ClInclude Include="AutoLogin\LoginData.h">
       <Filter>Source Files\AutoLogin</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkPopupMenu.h">
+      <Filter>Source Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="ShellFileDialog.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

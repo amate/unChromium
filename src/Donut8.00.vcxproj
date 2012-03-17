@@ -930,6 +930,7 @@
     <ClCompile Include="GdiplusUtil.cpp" />
     <ClCompile Include="IniFile.cpp" />
     <ClCompile Include="ItemIDList.cpp" />
+    <ClCompile Include="LinkPopupMenu.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="DonutTabBar.cpp" />
     <ClCompile Include="MenuEncode.cpp" />
@@ -937,6 +938,7 @@
     <ClCompile Include="MultiThreadManager.cpp" />
     <ClCompile Include="newdelete.cpp" />
     <ClCompile Include="option\AddressBarPropertyPage.cpp" />
+    <ClCompile Include="option\LinkBarPropertyPage.cpp" />
     <ClCompile Include="option\MDITabDialog.cpp" />
     <ClCompile Include="option\RightClickMenuDialog.cpp" />
     <ClCompile Include="option\UrlSecurityExPropDialog.cpp" />
@@ -1133,6 +1135,7 @@
     <ClInclude Include="ie_feature_control.h" />
     <ClInclude Include="IniFile.h" />
     <ClInclude Include="ItemIDList.h" />
+    <ClInclude Include="LinkPopupMenu.h" />
     <ClInclude Include="MainFrame.h" />
     <ClInclude Include="MainFrameFileDropTarget.h" />
     <ClInclude Include="MDIChildUserMessenger.h" />
@@ -1157,6 +1160,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="ScriptErrorCommandTargetImpl.h" />
     <ClInclude Include="SearchHistoryDialog.h" />
+    <ClInclude Include="ShellFileDialog.h" />
     <ClInclude Include="SimpleTree.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StyleSheetOption.h" />

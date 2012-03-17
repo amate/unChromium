@@ -1497,10 +1497,14 @@ HWND CMainFrame::OnUserOpenFile(const CString& strUrl, DWORD dwOpenFlag)
 
 //+++ url別拡張プロパティ対応で、本来のOnUserOpenFileをUserOpenFileに変名. 引数を末に追加.
 /// @param openFlag		DonutOpenFileFlags
-HWND CMainFrame::UserOpenFile(CString strFileOrURL, DWORD openFlag /*= DonutGetStdOpenFlag()*/, int dlCtrlFlag /*= -1*/, int extededStyleFlags /*= -1*/)
+HWND CMainFrame::UserOpenFile(CString strFileOrURL, 
+							  DWORD openFlag /*= DonutGetStdOpenFlag()*/, 
+							  int dlCtrlFlag /*= -1*/, 
+							  int extededStyleFlags /*= -1*/,
+							  int AutoRefresh /*= 0*/)
 {
 	MtlRemoveStringHeaderAndFooter(strFileOrURL);
-
+#pragma region ~.url open
 	//+++ メモ:urlのときの処理. 拡張プロパティの取得とかあるので、専用のopen処理へ...
 	if ( MtlIsExt( strFileOrURL, _T(".url") ) ) {	
 		// OpenInternetShortcut
@@ -1551,6 +1555,7 @@ HWND CMainFrame::UserOpenFile(CString strFileOrURL, DWORD openFlag /*= DonutGetS
 		}
 		return NULL;
 	}
+#pragma endregion
 
 	if (  !MtlIsProtocol( strFileOrURL, _T("http") )
 	   && !MtlIsProtocol( strFileOrURL, _T("https") ) )
@@ -1611,6 +1616,12 @@ HWND CMainFrame::UserOpenFile(CString strFileOrURL, DWORD openFlag /*= DonutGetS
 		if (strFileOrURL.Left(11).CompareNoCase(_T("javascript:")) == 0) {
 			::PostMessage(pChild->GetHwnd(), WM_EXECUTEUSERJAVASCRIPT, (WPARAM)(LPCTSTR)new CString(strFileOrURL), 0);
 		} else {
+			if (dlCtrlFlag != -1)
+				pChild->SetDLCtrl(dlCtrlFlag);
+			if (extededStyleFlags != -1)
+				pChild->SetExStyle(extededStyleFlags);
+			if (AutoRefresh != 0)
+				pChild->SetAutoRefreshStyle(AutoRefresh);
 			pChild->Navigate2(strFileOrURL);
 		}
 
@@ -1627,6 +1638,7 @@ HWND CMainFrame::UserOpenFile(CString strFileOrURL, DWORD openFlag /*= DonutGetS
 	data.strURL		= strFileOrURL;
 	data.dwDLCtrl	= dlCtrlFlag;
 	data.dwExStyle	= extededStyleFlags;
+	data.dwAutoRefresh	= AutoRefresh;
 	data.bActive	= _check_flag(openFlag, D_OPENFILE_ACTIVATE) 
 		|| m_ChildFrameClient.GetActiveChildFrameWindow() == NULL;
 	CChildFrame::AsyncCreate(data);
@@ -3672,7 +3684,7 @@ void CMainFrame::OnViewOptionDonut(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hW
 	CExplorerPropertyPage			pageExplorer;
 	CDestroyPropertyPage			pageDestroy;
 	CSkinPropertyPage				pageSkin(m_hWnd, &bSkinChange);
-	CLinkBarPropertyPage			pageLinks;
+	CLinkBarPropertyPage			pageLinks(m_LinkBar);
 
 	CString strURL, strTitle;
 	CChildFrame* pChild = GetActiveChildFrame();

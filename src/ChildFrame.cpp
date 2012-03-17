@@ -395,6 +395,13 @@ void	AutoLogin(const NameValueMap& NameValue, const CheckboxMap& CheckBox, CefRe
 	frame->ExecuteJavaScript((LPCTSTR)strScriptBody, url, 0);
 }
 
+
+void	SetSearchBarText(CefRefPtr<CefBrowser> browser)
+{
+	auto frame = browser->GetMainFrame();
+
+}
+
 };	// namespace
 
 /////////////////////////////////////////////////////////////
@@ -411,7 +418,8 @@ class CChildFrame::Impl :
 	public CefFocusHandler,
 	public CefKeyboardHandler,
 	public CefMenuHandler,
-	public CefPrintHandler
+	public CefPrintHandler,
+	public CefV8ContextHandler
 {
 	friend class CChildFrame;
 
@@ -462,6 +470,8 @@ public:
 		{ return this; }
 	virtual CefRefPtr<CefPrintHandler> GetPrintHandler() OVERRIDE
 		{ return this; }
+  virtual CefRefPtr<CefV8ContextHandler> GetV8ContextHandler() OVERRIDE
+      { return this; }
 	virtual CefRefPtr<CefDragHandler> GetDragHandler() OVERRIDE
 		{ return NULL; }
 
@@ -539,6 +549,10 @@ public:
 	virtual bool OnBeforeMenu(CefRefPtr<CefBrowser> browser,
                             const CefMenuInfo& menuInfo) OVERRIDE;
 
+	// CefV8ContextHandler methods
+	virtual void OnContextCreated(CefRefPtr<CefBrowser> browser,
+								CefRefPtr<CefFrame> frame,
+								CefRefPtr<CefV8Context> context) OVERRIDE;
 #if 0
 	// Event handlers
 	void	OnBeforeNavigate2(IDispatch*		pDisp,
@@ -937,3 +951,7 @@ CString	CChildFrame::GetLocationURL()
 	return pImpl->GetLocationURL();
 }
 
+CString CChildFrame::GetTitle()
+{
+	return pImpl->GetTitle();
+}

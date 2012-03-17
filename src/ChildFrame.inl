@@ -352,6 +352,26 @@ void CChildFrame::Impl::OnLoadEnd(CefRefPtr<CefBrowser> browser,
 		//m_Browser->Find(10, (LPCTSTR)strWords, true, false, false);
 	}
 
+	CString url = frame->GetURL().c_str();
+	url.MakeLower();
+	if (url.Find(_T("www.google.co.jp/search")) != -1) {
+		std::string strCode = 
+			"var DonutFormInputName = \"q\";"
+			"(function() {"
+			"for (var i = 0; i < document.forms.length; ++i) {"
+			"	var formElm = document.forms[i];"
+			"	var nCount = formElm.length;"
+			"	for (var k = 0; k < nCount; ++k) {"
+			"		if (formElm[k].name == DonutFormInputName) {"
+			"			DonutSetSearchBarText(formElm[k].value);"
+			"			return ;"
+			"		}"
+			"	}"
+			"}"
+			"})();";
+		frame->ExecuteJavaScript(strCode, CefString(), 0);
+	}
+
 	// Ž©“®ƒƒOƒCƒ“
 	int nIndex = CLoginDataManager::Find(frame->GetURL().c_str());
 	if (nIndex != -1) {
@@ -769,6 +789,49 @@ bool CChildFrame::Impl::OnBeforeMenu(CefRefPtr<CefBrowser> browser,
 	return true;
 }
 
+
+// CefV8ContextHandler methods
+void CChildFrame::Impl::OnContextCreated(CefRefPtr<CefBrowser> browser,
+										 CefRefPtr<CefFrame> frame,
+										 CefRefPtr<CefV8Context> context)
+{
+	CString url = frame->GetURL().c_str();
+	url.MakeLower();
+	if (url.Find(_T("www.google.co.jp/search")) != -1) {
+		class CFormContentTextHandler : public CefV8Handler
+		{
+		public:
+			CFormContentTextHandler(LPCTSTR str) : m_strNowSearchText(str) { }
+			virtual bool Execute(const CefString& name,
+                    CefRefPtr<CefV8Value> object,
+                    const CefV8ValueList& arguments,
+                    CefRefPtr<CefV8Value>& retval,
+                    CefString& exception) OVERRIDE
+			{
+				if (name == L"DonutSetSearchBarText") {
+					if (arguments.empty())
+						return false;
+					CString text = arguments[0]->GetStringValue().c_str();
+					//TRACEIN(text);
+					if (text != m_strNowSearchText)
+						CDonutSearchBar::GetInstance()->SetSearchTextByChildFrame(text);
+					return true;
+				}
+				return false;
+			}
+
+		private:
+			CString m_strNowSearchText;
+
+			IMPLEMENT_REFCOUNTING(CFormContentTextHandler);
+		};
+		CefRefPtr<CefV8Handler> funcHandler = new CFormContentTextHandler(m_strSearchWord);
+		context->GetGlobal()->SetValue(
+			L"DonutSetSearchBarText", 
+			CefV8Value::CreateFunction(L"DonutSetSearchBarText", funcHandler),
+			V8_PROPERTY_ATTRIBUTE_NONE);
+	}
+}
 
 
 #if 0

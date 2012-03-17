@@ -129,6 +129,7 @@ public:
 	CMenuHandle GetSearchEngineMenuHandle();
 	CString GetSearchStr() const;
 	void	SetSearchStr(const CString& strWord);
+	void	SetSearchTextByChildFrame(const CString& strText);
 	CString GetSearchEngineStr() const;
 	const SearchPostData&	GetSearchPostData() const { return m_PostData; }
 
@@ -453,6 +454,17 @@ void	CDonutSearchBar::Impl::SetSearchStr(const CString& strWord)
 	_SetCmbKeywordEmptyStr();	//!< 検索バーに文字列がないときエンジン名を表示する
 	m_cmbKeyword.Invalidate();
 	m_cmbKeyword.UpdateWindow();
+}
+
+/// CChildFrameから検索バーにテキストを設定する (SearchBarHelperのような)
+void	CDonutSearchBar::Impl::SetSearchTextByChildFrame(const CString& strText)
+{
+	SetSearchStr(strText);
+	_AddToSearchBoxUnique(strText);
+	if (GetHilightSw()) {
+		SearchHilight();
+		SearchHilight();
+	}
 }
 
 /// 現在選択されている検索エンジン名取得
@@ -2231,6 +2243,11 @@ bool	CDonutSearchBar::GetHilightSw() const
 void	CDonutSearchBar::SetSearchStr(const CString& strWord)
 {
 	return pImpl->SetSearchStr(strWord);
+}
+
+void	CDonutSearchBar::SetSearchTextByChildFrame(const CString& strText)
+{
+	pImpl->SetSearchTextByChildFrame(strText);
 }
 
 CMenuHandle CDonutSearchBar::GetSearchEngineMenuHandle()

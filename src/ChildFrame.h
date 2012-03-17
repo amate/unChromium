@@ -64,6 +64,7 @@ public:
 	CComPtr<IWebBrowser2>	GetIWebBrowser();
 	CComPtr<IWebBrowser2>	GetMarshalIWebBrowser();
 	CString	GetLocationURL();
+	CString GetTitle();
 
 private:
 	CChildFrame();

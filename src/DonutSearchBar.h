@@ -41,6 +41,7 @@ public:
 	bool	ForceSetHilightBtnOn(bool bOn);
 	bool	GetHilightSw() const;
 	void	SetSearchStr(const CString& strWord);
+	void	SetSearchTextByChildFrame(const CString& strText);
 	CMenuHandle GetSearchEngineMenuHandle();
 	const SearchPostData&	GetSearchPostData() const;
 

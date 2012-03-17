@@ -131,7 +131,7 @@
 #define IDB_FIND                        316
 #define IDB_DLTOOLBAR                   317
 #define IDM_DOWNLOADINGLISTVIEW         318
-#define IDD_RENAMEDIALOG                319
+#define IDD_LINKEDITDIALOG              319
 #define IDD_DLLIST                      320
 #define IDD_PROPPAGE_USERDEFINEDCSS     321
 #define IDD_PROPPAGE_USERDEFINEDCSS1    322
@@ -139,6 +139,9 @@
 #define IDD_SCRIPTDETAIL                323
 #define IDD_GETAUTHCREDENTIALS          324
 #define IDD_LOGININFOEDITOR             325
+#define IDI_FOLDER                      326
+#define IDD_RENAMEDIALOG                327
+#define IDM_LINKBAR                     328
 #define IDC_SLIDER                      1000
 #define IDC_IGNORED_URL_LIST            1000
 #define IDC_EDIT                        1001
@@ -197,6 +200,7 @@
 #define IDC_RADIO_HOME                  1044
 #define IDC_RADIO_NOINITWIN             1045
 #define IDC_BUTTON_REF                  1046
+#define IDC_EDIT_URL                    1047
 #define IDC_CHECK_MAIN_NOMDI            1048
 #define IDC_CHECK_MAIN_VIEWCLIPBOARD    1049
 #define IDC_CHECK_MDITAB_MULTILINE      1050
@@ -325,6 +329,7 @@
 #define IDC_CHECK_NOCLOSE_NAVILOCK      1168
 #define IDC_LISTBOX1                    1169
 #define IDC_BTN_CLEAR                   1174
+#define IDC_BTN_ADD                     1177
 #define IDC_LIST1                       1178
 #define IDC_LIST2                       1179
 #define IDC_BTN_UP                      1180
@@ -585,7 +590,6 @@
 #define IDC_EDIT_USERNAME               1438
 #define IDC_EDIT_PASSWORD               1439
 #define IDC_URL_LIST                    1440
-#define IDC_EDIT_URL                    1441
 #define IDC_EDIT_FORMNAME               1442
 #define IDC_VALUE1                      1443
 #define IDC_VALUE2                      1444
@@ -594,7 +598,6 @@
 #define IDC_NAME2                       1447
 #define IDC_NAME3                       1448
 #define IDC_BTN_APPLY                   1449
-#define IDC_BTN_ADD                     1450
 #define IDC_BTN_NEW                     1451
 #define IDC_BTN_IMPORT                  1452
 #define IDC_BTN_EXPORT                  1453
@@ -604,8 +607,15 @@
 #define IDC_CHECKNAME2                  1457
 #define IDC_CHECKBOX1                   1458
 #define IDC_CHECKBOX2                   1459
-#define IDC_EDIT_CASH                   1460
 #define IDC_EDIT_CACHEPATH              1460
+#define IDC_CHECK_SHOWICONONLY          1461
+#define IDC_CHECK_NOSHOWDRAGIMAGE       1462
+#define IDC_EDIT_NAME                   1463
+#define IDC_SPIN_MAXTEXTWIDTH           1464
+#define IDC_BTN_LINKIMPORTFROMFOLDER    1465
+#define IDC_BTN_LINKEXPORTTOFOLDER      1466
+#define IDC_EDIT_MAXTEXTWIDTH           1467
+#define ID_GETFAVICONFROMFILE			1468
 #define IDC_CHECK_VIDEO                 2000
 #define IDC_CHECK_SOUND                 2001
 #define IDC_CHECK_IMAGE                 2002
@@ -944,6 +954,23 @@
 #define ID_SHOWAUTOLOGINEDITDIALOG      33221
 #define ID_33222                        33222
 #define ID_SHOW_AUTOLOGINEDITDIALOG     33223
+#define ID_OPENLINK                     33224
+#define ID_OPENNEWTABLINK               33225
+#define ID_OPENLINKONNEWTAB             33226
+#define ID_EDITLINK                     33227
+#define ID_EDITLINKITEM                 33228
+#define ID_DELETELINKITEM               33229
+#define ID_ADDLINK                      33230
+#define ID_ADDFOLDER                    33231
+#define ID_ALLOPENLINKONFOLDER          33232
+#define ID_ALLOPENLINKINFOLDER          33233
+#define ID_OPENALLLINKINFOLDER          33234
+#define ID_EDITFOLDERNAME               33235
+#define ID_DELETE                       33236
+#define ID_EDITEXPROPERTY               33237
+#define ID_ITEMNONE_33223               33238
+#define ID_SORTBYNAME                   33239
+#define ID_ID_SORTBYNAME                33240
 #define ID_PLUGIN_COMMAND               33333
 #define COMMAND_RANGE_END               34000
 #define ID_INSERTPOINT_CSSMENU          35000
@@ -987,9 +1014,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        326
-#define _APS_NEXT_COMMAND_VALUE         33224
-#define _APS_NEXT_CONTROL_VALUE         1461
+#define _APS_NEXT_RESOURCE_VALUE        329
+#define _APS_NEXT_COMMAND_VALUE         33241
+#define _APS_NEXT_CONTROL_VALUE         1469
 #define _APS_NEXT_SYMED_VALUE           130
 #endif
 #endif

@@ -633,7 +633,11 @@ public:
 	LRESULT OnGetSearchBar() { return (LRESULT) &m_SearchBar; }
 	//------------------
 	// open
-	HWND 	UserOpenFile(CString strFileOrURL, DWORD openFlag = DonutGetStdOpenFlag(), int dlCtrlFlag = -1, int extendedStyleFlags = -1);
+	HWND 	UserOpenFile(CString strFileOrURL, 
+						 DWORD openFlag = DonutGetStdOpenFlag(), 
+						 int dlCtrlFlag = -1, 
+						 int extendedStyleFlags = -1,
+						 int AutoRefresh = 0);
 	LRESULT OnOpenWithExProp(_EXPROP_ARGS *pArgs);
 #if 0
 	HWND 	OpenUrlWithExProp(CString strUrl, DWORD dwOpenFlag, DWORD dwExProp, DWORD dwExProp2);
