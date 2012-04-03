@@ -890,6 +890,9 @@
     <None Include="DonutLinkBarCtrl.inl">
       <Filter>Source Files\Window</Filter>
     </None>
+    <None Include="res\folder.ico">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Donut.rc">

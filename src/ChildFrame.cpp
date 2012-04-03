@@ -14,6 +14,7 @@
 #include "DonutView.h"
 #include "MultiThreadManager.h"
 #include "ChildFrameCommandUIUpdater.h"
+
 #include "option\MainOption.h"
 #include "option\DLControlOption.h"
 #include "option\MouseDialog.h"
@@ -22,6 +23,8 @@
 #include "option\UrlSecurityOption.h"
 #include "option\SearchPropertyPage.h"
 #include "option\AddressBarPropertyPage.h"
+#include "option\SkinOption.h"
+
 #include "FaviconManager.h"
 #include "ToolTipManager.h"
 #include "PluginManager.h"
@@ -676,6 +679,7 @@ public:
 		if (uMsg == WM_COMMAND)
 			GetTopLevelWindow().PostMessage(WM_COMMAND_FROM_CHILDFRAME, wParam, lParam);
 	ALT_MSG_MAP(1)	// WebViewHost
+		MSG_WM_MOUSEWHEEL	( OnViewMouseWheel )
 		MSG_WM_MBUTTONUP	( OnViewMButtonUp	)
 		MSG_WM_XBUTTONUP	( OnViewXButtonUp	)
 		MSG_WM_RBUTTONDOWN	( OnViewRButtonDown	)
@@ -756,6 +760,7 @@ public:
 	void	OnSaveImage(UINT uNotifyCode, int nID, CWindow wndCtl);
 
 	// WebViewHost
+	BOOL OnViewMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	void OnViewMButtonUp(UINT nFlags, CPoint point);
 	void OnViewXButtonUp(int fwButton, int dwKeys, CPoint ptPos);
 	void OnViewRButtonDown(UINT nFlags, CPoint point);

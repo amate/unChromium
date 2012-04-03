@@ -39,6 +39,10 @@ WTL::CLogFont CSkinOption::s_lfSearchBar;
 WTL::CLogFont CSkinOption::s_lfLinkBar;
 WTL::CLogFont CSkinOption::s_lfProxyComboBox;
 
+CString		CSkinOption::s_StandardFontName;
+int			CSkinOption::s_StandardFontSize = 0;
+CString		CSkinOption::s_FixedFontName;
+int			CSkinOption::s_FixedFontSize = 0;
 
 
 void CSkinOption::_GetSkinFont(CIniFileI &pr,const CString& strPrefix, WTL::CLogFont& lf, const WTL::CLogFont& lfDef)
@@ -142,6 +146,11 @@ void CSkinOption::GetProfile()
 		_GetSkinFont(pr, _T("SearchBar")	, s_lfSearchBar		, lfDefault);
 		_GetSkinFont(pr, _T("LinkBar")		, s_lfLinkBar		, lfDefault);
 		_GetSkinFont(pr, _T("ProxyComboBox"), s_lfProxyComboBox	, lfDefault);
+
+		s_StandardFontName	= pr.GetString(_T("BrowserStandardFontName"));
+		s_StandardFontSize	= pr.GetValuei(_T("BrowserStandardFontSize"));
+		s_FixedFontName		= pr.GetString(_T("BrowserFixedFontName"));
+		s_FixedFontSize		= pr.GetValuei(_T("BrowserFixedFontSize"));
 	}
 }
 
@@ -262,6 +271,7 @@ LRESULT CSkinPropertyPage::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*
 
 LRESULT CSkinPropertyPage::OnSkinApply(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL & /*bHandled*/)
 {
+	// Ý’è‚ð•Û‘¶‚·‚é
 	CIniFileO	pr( g_szIniFileName, _T("Skin") );
 
 	_SaveFont(pr, _T("TabBar"),			m_lfTabBar);
@@ -276,6 +286,14 @@ LRESULT CSkinPropertyPage::OnSkinApply(WORD /*wNotifyCode*/, WORD wID, HWND /*hW
 	CSkinOption::s_lfLinkBar		= m_lfLinkBar;	
 	CSkinOption::s_lfProxyComboBox	= m_lfProxyComboBox;
 
+	if (s_StandardFontName.GetLength() > 0) {
+		pr.SetString(s_StandardFontName , _T("BrowserStandardFontName"));
+		pr.SetValue(s_StandardFontSize	, _T("BrowserStandardFontSize"));
+	}
+	if (s_FixedFontName.GetLength() > 0) {
+		pr.SetString(s_FixedFontName	, _T("BrowserFixedFontName"));
+		pr.SetValue(s_FixedFontSize		, _T("BrowserFixedFontSize"));
+	}
 
 	CListBox List		 = GetDlgItem(IDC_LIST_SKIN);
 	int 	 index		 = List.GetCurSel();
@@ -334,6 +352,42 @@ void	CSkinPropertyPage::OnFontSetting(UINT uNotifyCode, int nID, CWindow wndCtl)
 
 	if (dlg.DoModal() == IDOK) {
 		*plf = dlg.m_lf;
+		_InitStaticText();
+	}
+}
+
+
+void	CSkinPropertyPage::OnBrowserFontSetting(UINT uNotifyCode, int nID, CWindow wndCtl)
+{
+	WTL::CLogFont	lf;
+	DWORD dwFlags = CF_SCREENFONTS;
+	switch (nID) {
+	case IDC_BROWSER_STANDARDFONT:
+		::wcscpy_s(lf.lfFaceName, s_StandardFontName);
+		lf.lfHeight = -s_StandardFontSize;
+		break;
+	case IDC_BROWSER_FIXEDFONT:
+		::wcscpy_s(lf.lfFaceName, s_FixedFontName);
+		lf.lfHeight = -s_FixedFontSize;
+		break;
+	default:
+		ATLASSERT(FALSE);
+		return ;
+	}
+
+	CFontDialog dlg(&lf, dwFlags);
+	if (dlg.DoModal() == IDOK) {
+		lf	= dlg.m_lf;
+		switch (nID) {
+		case IDC_BROWSER_STANDARDFONT:
+			s_StandardFontName = lf.lfFaceName;
+			s_StandardFontSize = ::abs(lf.lfHeight);
+			break;
+		case IDC_BROWSER_FIXEDFONT:
+			s_FixedFontName	= lf.lfFaceName;
+			s_FixedFontSize	= ::abs(lf.lfHeight);
+			break;
+		}
 		_InitStaticText();
 	}
 }
@@ -400,6 +454,22 @@ void	CSkinPropertyPage::_InitStaticText()
 	m_sSearchBar.SetWindowText		(m_lfSearchBar.lfFaceName);
 	m_sLinkBar.SetWindowText		(m_lfLinkBar.lfFaceName);
 	m_sProxyComboBox.SetWindowText	(m_lfProxyComboBox.lfFaceName);
+
+
+	WTL::CLogFont	lf;
+	if (s_StandardFontName.GetLength() > 0) {
+		::wcscpy_s(lf.lfFaceName, s_StandardFontName);
+		lf.lfHeight = -s_StandardFontSize;
+		GetDlgItem(IDC_BROWSER_STANDARD_STATIC).SetFont(lf.CreateFontIndirect());		
+	}
+	GetDlgItem(IDC_BROWSER_STANDARD_STATIC).SetWindowText(s_StandardFontName);
+
+	if (s_FixedFontName.GetLength() > 0) {
+		::wcscpy_s(lf.lfFaceName, s_FixedFontName);
+		lf.lfHeight	= -s_FixedFontSize;
+		GetDlgItem(IDC_BROWSER_FIXED_STATIC).SetFont(lf.CreateFontIndirect());
+	}
+	GetDlgItem(IDC_BROWSER_FIXED_STATIC).SetWindowText(s_FixedFontName);
 }
 
 

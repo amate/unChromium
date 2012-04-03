@@ -1557,12 +1557,20 @@ int		CChildFrame::Impl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	settings.encoding_detector_enabled	= true;
 	settings.shrink_standalone_images_to_fit	= true;
 
-	CefString(&settings.standard_font_family).FromWString(std::wstring(L"メイリオ"));
-	CefString(&settings.serif_font_family).FromWString(std::wstring(L"メイリオ"));
-	CefString(&settings.sans_serif_font_family).FromWString(std::wstring(L"メイリオ"));
-	CefString(&settings.cursive_font_family).FromWString(std::wstring(L"メイリオ"));
-	CefString(&settings.fantasy_font_family).FromWString(std::wstring(L"メイリオ"));
-	CefString(&settings.fixed_font_family).FromWString(std::wstring(L"Meiryo UI"));
+	if (CSkinOption::s_StandardFontName.GetLength() > 0) {
+		CefString(&settings.standard_font_family).FromWString(std::wstring(CSkinOption::s_StandardFontName));
+		CefString(&settings.serif_font_family).FromWString(std::wstring(CSkinOption::s_StandardFontName));
+		CefString(&settings.sans_serif_font_family).FromWString(std::wstring(CSkinOption::s_StandardFontName));
+		CefString(&settings.cursive_font_family).FromWString(std::wstring(CSkinOption::s_StandardFontName));
+		CefString(&settings.fantasy_font_family).FromWString(std::wstring(CSkinOption::s_StandardFontName));
+		settings.default_font_size	= CSkinOption::s_StandardFontSize;
+		//settings.minimum_font_size	= CSkinOption::s_StandardFontSize;
+	}
+	if (CSkinOption::s_FixedFontName.GetLength() > 0) {
+		CefString(&settings.fixed_font_family).FromWString(std::wstring(CSkinOption::s_FixedFontName));
+		settings.default_fixed_font_size	= CSkinOption::s_FixedFontSize;
+		//settings.minimum_logical_font_size	= CSkinOption::s_FixedFontSize;
+	}
 	//settings.default_font_size	= 16;
 	//settings.default_fixed_font_size	= 12;
 
@@ -1634,6 +1642,7 @@ void	CChildFrame::Impl::OnSize(UINT nType, CSize size)
         EndDeferWindowPos(hdwp);
 	}
 }
+
 
 void	CChildFrame::Impl::OnChildFrameActivate(HWND hWndAct, HWND hWndDeact)
 {
@@ -2820,6 +2829,30 @@ void	CChildFrame::Impl::OnViewDevTool(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 }
 
 // WebViewHost
+
+
+BOOL	CChildFrame::Impl::OnViewMouseWheel(UINT nFlags, short zDelta, CPoint pt)
+{
+	if (::GetAsyncKeyState(VK_MENU) < 0) {
+		auto SetBodyStyleZoom	= [this](double addSub) {
+			double zoomLevel = 0;
+			double NowZoomLevel = m_Browser->GetZoomLevel();
+			zoomLevel = NowZoomLevel;
+			zoomLevel += addSub;
+			m_Browser->SetZoomLevel(zoomLevel);
+			m_Browser->SetFocus(true);
+		};
+		if (zDelta > 0) {
+			SetBodyStyleZoom(+0.5);
+		} else {
+			SetBodyStyleZoom(-0.5);
+		}
+
+	} else {
+		SetMsgHandled(FALSE);
+	}
+	return 0;
+}
 
 void CChildFrame::Impl::OnViewMButtonUp(UINT nFlags, CPoint point)
 {

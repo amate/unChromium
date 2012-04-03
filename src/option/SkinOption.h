@@ -87,6 +87,11 @@ public:
 	static WTL::CLogFont s_lfLinkBar;
 	static WTL::CLogFont s_lfProxyComboBox;
 
+	static CString		s_StandardFontName;
+	static int			s_StandardFontSize;
+	static CString		s_FixedFontName;
+	static int			s_FixedFontSize;
+
 private:
 	static void _GetSkinFont(CIniFileI &pr, const CString &strPrefix, WTL::CLogFont& lf, const WTL::CLogFont& lfDef);
 
@@ -103,7 +108,10 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 // CSkinPropertyPage
 
-class CSkinPropertyPage : public CPropertyPageImpl<CSkinPropertyPage> {
+class CSkinPropertyPage : 
+	public CPropertyPageImpl<CSkinPropertyPage>, 
+	protected CSkinOption
+{
 public:
 	enum { IDD = IDD_PROPPAGE_SKIN };
 
@@ -139,6 +147,9 @@ public:
 		COMMAND_ID_HANDLER_EX(IDC_SEARCHBAR_FONT	, OnFontSetting )
 		COMMAND_ID_HANDLER_EX(IDC_LINKBAR_FONT		, OnFontSetting )
 		COMMAND_ID_HANDLER_EX(IDC_PROXYCMB_FONT		, OnFontSetting )
+
+		COMMAND_ID_HANDLER_EX( IDC_BROWSER_STANDARDFONT	, OnBrowserFontSetting )
+		COMMAND_ID_HANDLER_EX( IDC_BROWSER_FIXEDFONT	, OnBrowserFontSetting )
 	END_MSG_MAP()
 
 	LRESULT OnSelChanged(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL &bHandled);
@@ -146,6 +157,7 @@ public:
 	LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL & /*bHandled*/);
 	LRESULT OnSkinApply(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL & /*bHandled*/);
 	void	OnFontSetting(UINT uNotifyCode, int nID, CWindow wndCtl);
+	void	OnBrowserFontSetting(UINT uNotifyCode, int nID, CWindow wndCtl);
 
 private:
 	void	_SetData();

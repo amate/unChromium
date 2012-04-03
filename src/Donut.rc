@@ -41,11 +41,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-#ifdef WIN64
-IDR_MAINFRAME           ICON                    "res64\\Icon_64.ico"
-#else
 IDR_MAINFRAME           ICON                    "res\\Icon_100.ico"
-#endif
 IDR_MDICHILD            ICON                    "res\\DonutDoc.ico"
 IDI_DLSTOP              ICON                    "res\\DLStop.ico"
 IDI_GENERIC_DOCUMENT    ICON                    "res\\Generic_Document.ico"
@@ -1592,7 +1588,7 @@ BEGIN
     LTEXT           "現在のスキン",IDC_STATIC,5,10,127,8
     LTEXT           "Static",IDC_STATIC_NAME,5,20,135,11,0,WS_EX_CLIENTEDGE
     PUSHBUTTON      "適用(&A)",IDC_BUTTON_APPLY,215,190,56,13,BS_FLAT
-    GROUPBOX        "フォント",IDC_STATIC,145,10,130,130
+    GROUPBOX        "フォント",IDC_STATIC,145,10,130,174
     PUSHBUTTON      "タブバー",IDC_TABBAR_FONT,150,25,50,15
     PUSHBUTTON      "アドレスバー",IDC_ADDRESSBAR_FONT,150,45,50,15
     PUSHBUTTON      "リンクバー",IDC_LINKBAR_FONT,150,85,50,15
@@ -1603,6 +1599,11 @@ BEGIN
     CONTROL         "スタティック",IDC_ADDRESSBAR_STATIC,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,205,45,65,15,WS_EX_STATICEDGE
     CONTROL         "スタティック",IDC_LINKBAR_STATIC,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,205,85,65,15,WS_EX_STATICEDGE
     CONTROL         "スタティック",IDC_PROXYCMB_STATIC,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,205,115,65,15,WS_EX_STATICEDGE
+    PUSHBUTTON      "固定幅",IDC_BROWSER_FIXEDFONT,150,165,50,15
+    PUSHBUTTON      "標準",IDC_BROWSER_STANDARDFONT,150,145,50,15
+    CONTROL         "スタティック",IDC_BROWSER_STANDARD_STATIC,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,205,145,65,15,WS_EX_STATICEDGE
+    CONTROL         "スタティック",IDC_BROWSER_FIXED_STATIC,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,205,165,65,15,WS_EX_STATICEDGE
+    LTEXT           "ブラウザ ※変更は新規タブから有効",IDC_STATIC,152,136,116,8
 END
 
 IDD_PROPPAGE_MOUSEGESTURE DIALOGEX 0, 0, 280, 256

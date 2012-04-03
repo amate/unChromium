@@ -1257,6 +1257,7 @@
     <None Include="res\FavBar.bmp" />
     <None Include="res\FavBarHot.bmp" />
     <None Include="res\Find.bmp" />
+    <None Include="res\folder.ico" />
     <None Include="res\Generic_Document.ico" />
     <None Include="res\Go.bmp" />
     <None Include="res\GoHot.bmp" />
