@@ -9,7 +9,7 @@
 #include <dbghelp.h>
 #include <shellapi.h>
 #include <shlobj.h>
-#include <include\cef.h>
+#include <include\cef_app.h>
 
 #include "MtlMisc.h"
 #include "AtlHostEx.h"

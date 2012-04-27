@@ -5,8 +5,10 @@
 
 #include "stdafx.h"
 #include "ChildFrame.h"
-#include "include\cef.h"
+#include "include\cef_browser.h"
+#include "Include\cef_frame.h"
 #include "Include\cef_runnable.h"
+#include "Include\cef_client.h"
 #include "cef\util.h"
 #include <fstream>
 #include "MtlBrowser.h"
